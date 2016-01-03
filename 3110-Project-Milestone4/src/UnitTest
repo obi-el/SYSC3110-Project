@@ -1,0 +1,71 @@
+import junit.framework.TestCase;
+/* Unit Test Plan
+ * -----------------
+ * The following unit test is made to check if the program can handle the following
+ * cases as designed:
+ * -testActV:
+ * -testAddFollowerV:
+ * -testLikeDocumentV:
+ * -test2LikeDocumentV:
+ * -test2AddFollowerV:
+ * 
+ */
+public class UnitTest extends TestCase{
+	
+	private FileShare fx = null;
+	private Consumer Kent = null;
+	private Consumer Cole = null;
+	private Consumer Jenny = null;
+	private Consumer Marrie = null;
+	private Producer Speed = null;
+	private Producer Thunder = null;
+	private Document Pop = null;
+	private Document Rock = null;
+	
+	protected void setUp(){
+		fx = new FileShare();
+		Kent = new Consumer("Jazz", fx);
+		Cole = new Consumer("Rock", fx);
+		Jenny = new Consumer("Rock", fx);
+		Marrie = new Consumer("Pop", fx);
+		Speed = new Producer("Rock", fx);
+		Thunder = new Producer("Pop", fx);
+		Rock = new Document("Rock", Speed);
+		Pop = new Document("Pop", Thunder);
+		fx.addUser(Thunder);
+		fx.addUser(Speed);
+		fx.addUser(Marrie);
+		fx.addUser(Jenny);
+		fx.addUser(Cole);
+		fx.addUser(Kent);
+	}
+	//Valid testing;
+	public void testActV(){
+		Speed.act();
+		Thunder.act();
+		assertEquals("Did not Create the Document Rock", Speed.getTaste(), "Rock");
+		assertEquals("Did not Create the Document Pop", Thunder.getTaste(), "Pop");
+	}
+	
+	public void testAddFollowerV(){
+		Kent.followUser(Cole);
+		assertEquals("Could not Follow User Cole", 1, Cole.followers.size());
+	}
+	
+	public void testLikeDocumentV(){
+		Jenny.likeDocument(Jenny, Rock);
+		assertEquals("Like attempt failed", 1, Rock.getNumberofLikes());
+	}
+	
+	public void test2LikeDocumentV(){
+		Jenny.likeDocument(Jenny, Rock);
+		Kent.likeDocument(Kent, Rock);
+		assertEquals("Like attempt failed", 2, Rock.getNumberofLikes());
+	}
+	
+	public void test2AddFollowerV(){
+		Kent.followUser(Cole);
+		Marrie.followUser(Cole);
+		assertEquals("Kent and Marrie are not following Cole",2,Cole.followers.size());
+	}
+}

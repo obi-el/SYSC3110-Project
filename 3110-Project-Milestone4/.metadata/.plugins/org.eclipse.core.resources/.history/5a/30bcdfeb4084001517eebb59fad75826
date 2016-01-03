@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class Producer extends Users {
+
+    private ArrayList<Document> posted = new ArrayList<Document>();  // documents posted by this producer
+    int nofollwr=0; // no of followers from past simulation cycle
+
+    public Producer(String userTaste, FileShare fs){
+        super(userTaste, fs);
+    }
+	
+	/*
+	 * makes a new document and posts it to the social network, he then likes it and it is added to
+	 * an arraylist of documents he made.
+	 * He then searches the social network for the top k posts, k is randomly generated between 0 - 11
+	 * (11 exclusive)
+	 * He then looks through the result from the search and likes the documents with similar tastes to his
+	 * and also follows users that liked those same documents.
+	 * payoff is calculated and posted
+	 
+	 * 
+	 */
+
+    public void act(){
+        int pays = 0;
+        //int nofollwr = 0;
+
+
+        Document po = new Document(userTaste, this);
+        fs.addDocument(po);
+        likeDocument(this, po);
+        posted.add(po);
+        List<Document> liked = fs.searchByLikes(rn.nextInt(11));
+
+        for(Document d : liked ){
+            if (d == null)  return;
+            if(d.getDocumentTag().equals(userTaste)){
+                likeDocument(this, po);
+                for(Users user : d.getLikers()) followUser(user);
+
+            }
+        }
+
+        if(followers.size() > nofollwr) pays += (followers.size() - nofollwr); // if you were followed increase payoff
+
+        nofollwr = followers.size();
+        payoff+= pays;
+        System.out.println("producer " + userid + " payoff is now " + payoff );
+    }
+}

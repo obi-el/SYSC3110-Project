@@ -1,0 +1,45 @@
+import java.util.*;
+
+public class Consumer extends Users{
+
+
+
+    public Consumer(int userid, String userTaste, FileShare fs){
+        super(userTaste, fs);
+    }
+
+    /* goes through the search results and counts how many
+     * of them have have not already been liked i.e how much it pays, which sums
+     * up our version of a "payoff"
+     */
+    private int calculatePayoff(List<Document> doc){
+        int pays =0;
+        for(Document d : doc){
+            if (!(d.getLikers().contains(this))) pays++;
+
+        }
+        payoff += pays;
+        return pays;
+    }
+
+	/*
+	 * Searches the social network for the top k documents, calculates the payoff from the search results
+	 * likes documents with similar tastes and follows users that liked them also
+	 * 
+	 */
+
+
+    public void act(){
+
+        List<Document> liked = fs.searchByLikes(rn.nextInt(11));
+        System.out.println("last search by " + userid + " paid " + calculatePayoff(liked));
+        for(Document d : liked ){
+            if (d == null) return;
+            if(d.getDocumentTag().equals(userTaste)){
+                likeDocument(this,d);
+                for(Users user : d.getLikers()) followUser(user);
+
+            }
+        }
+    }
+}

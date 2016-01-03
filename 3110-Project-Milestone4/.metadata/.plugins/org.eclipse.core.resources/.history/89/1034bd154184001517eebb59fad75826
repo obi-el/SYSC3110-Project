@@ -1,0 +1,56 @@
+/**
+ * Created by Home on 2015-10-17.
+ */
+import java.util.*;
+
+
+public class Simulator {
+    FileShare fs;
+    public Simulator()
+    {
+        fs = new FileShare();
+    }
+
+    //to be filled by milestone 2
+    public void graphResults()
+    {
+
+    }
+
+    public static void main (String args[])
+    {
+    	Scanner scan = new Scanner(System.in);
+    	System.out.println("Input number of Producers: ");
+    	int prod = scan.nextInt();
+    	System.out.println("Input number of Consumers: ");
+    	int cons = scan.nextInt();
+    	
+    /*	
+        FileShare fs = new FileShare();
+        Producer dre = new Producer("dre", "beats", fs);
+        Producer skrillex = new Producer("skrillex", "edm", fs);
+        Producer justBlaze = new Producer("Just Blaze", "beats", fs);
+        Producer God = new Producer("Jesus", "heaven", fs);
+        Consumer justin = new Consumer("justin", "pop", fs);
+        Consumer obi = new Consumer("obi", "edm", fs);
+        Consumer cmoi = new Consumer("cmoi", "beats", fs);
+        Consumer craig = new Consumer("craig", "edm", fs);
+        Consumer logo = new Consumer("logo", "edm", fs);
+        Consumer oma = new Consumer("oma", "beats", fs);
+        
+        for(int n = 0; n<10;n++)
+        {
+            System.out.println("Simulation Cycle " + n + "\nProducers first");
+            for (Users u : fs.getUsers())
+            {
+                if (u instanceof Producer) ((Producer) u).act();
+            }
+
+            System.out.println("Now Consumers");
+            for (Users u : fs.getUsers())
+            {
+                if (u instanceof Consumer) ((Consumer) u).act();
+            }
+        }
+    } */
+}

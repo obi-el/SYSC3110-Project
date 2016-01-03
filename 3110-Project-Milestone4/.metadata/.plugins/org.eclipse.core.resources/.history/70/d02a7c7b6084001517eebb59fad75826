@@ -1,0 +1,65 @@
+import java.util.*;
+
+public class Document {
+    private ArrayList<Users> Likers;
+    private int DocumentID;
+    private String documentTag;
+    private Random rn = new Random();
+    private Users poster;
+
+    public Document(String documentTag, Users poster){
+        this.DocumentID = rn.nextInt(9999);
+        this.documentTag = documentTag;
+        Likers = new ArrayList<Users>();
+        this.poster = poster;
+    }
+
+    /**
+     * @param arg0
+     * @return
+     * @see java.util.List#add(java.lang.Object)
+     */
+
+
+
+    public int getNumberofLikes(){
+        return Likers.size();
+    }
+
+    /**
+     * @param arg0
+     * @return
+     * @see java.util.ArrayList#add(java.lang.Object)
+     */
+    public boolean addLikers(Users arg0) {
+        return Likers.add(arg0);
+    }
+
+    /**
+     * @return the documentTag
+     */
+    public String getDocumentTag() {
+        return documentTag;
+    }
+
+    /**
+     * @return the likers
+     */
+    public ArrayList<Users> getLikers() {
+        return Likers;
+    }
+
+    /**
+     * @return the documentID
+     */
+    public int getDocumentID() {
+        return DocumentID;
+    }
+
+    /**
+     * @return the poster
+     */
+    public Users getPoster() {
+        return poster;
+    }
+}

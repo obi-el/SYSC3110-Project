@@ -1,0 +1,146 @@
+import javax.print.Doc;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Created by Home on 2015-10-17.
+ */
+
+public class FileShare {
+    private List<Users> users;
+    private List<Document> docs;
+
+    FileShare()
+    {
+        users = new ArrayList<>();
+        docs = new ArrayList<>();
+    }
+
+    public void addUser(Users user)
+    {
+        users.add(user);
+    }
+
+    public List<Users> getUsers() {
+        return users;
+    }
+
+    public void addDocument(Document doc)
+    {
+        docs.add(doc);
+    }
+
+    public List<Document> getDocs() {
+        return docs;
+    }
+
+    /*
+    public List<Document> searchByTag (String tag)
+    {
+        List<Document> similarDocs = new ArrayList<>();
+        for (Document doc : docs)
+        {
+            if (doc.getDocumentTag().equals(tag)) similarDocs.add(doc);
+        }
+        return similarDocs;
+    }*/
+
+    /*
+    public int calculatePayoff(User user, List<Document> docs)
+    {
+        //tagSearch()
+
+        return 0;
+    }*/
+
+    //beginning of functions used to rank the top documents
+
+    //sort the current document arraylist by number of likes
+
+    public List<Document>  searchByLikes(int k)
+    {
+        List<Document> highestRanked = new ArrayList<>();
+        List<Document> testDoc = getDocs();
+        //check if arraylist is empty or if first character is 0
+        if(testDoc.get(0)==null || testDoc.size()==0) return highestRanked;
+        for(int j = 0; j<k;j++) {
+            int i;
+
+            /*
+            for (i = 0; i < testDoc.size(); i++) {
+                int liked = 0;
+                if(testDoc.get(i).getNumberofLikes() > liked) {
+                    liked = testDoc.get(i).getNumberofLikes();
+                }
+            }
+            highestRanked.add(testDoc.get(i));
+            testDoc.remove(i);
+        */
+            int max = testDoc.get(0).getNumberofLikes();
+
+            for (Document doc: testDoc)
+            {
+                Document mostLiked = new Document("", null);
+                if(doc.getNumberofLikes()>max)
+                {
+                    max = doc.getNumberofLikes();
+                    mostLiked = doc;
+                }
+                highestRanked.add(mostLiked);
+                testDoc.remove(mostLiked);
+            }
+
+        }
+            return highestRanked;
+    }
+
+/*
+//these shall be fully covered by the next milestone
+
+    //this ranking helps consumers to get documents from the most popular producers
+    public List<Document>  searchByUserPopularity(int k)
+    {
+        List<Document> highestRanked = new ArrayList<>();
+        List<Document> testDoc = docs;
+
+        return highestRanked;
+    }
+
+
+    public List<Document>  searchByMutualDistance(int k, User user)
+    {
+        List<Document> highestRanked = new ArrayList<>();
+        for(Document doc: docs)
+        {
+
+        }
+        return highestRanked;
+    }
+
+    //
+    public List<Document>  searchByLikeSimilarity(int k,User user)
+    {
+        List<Document> highestRanked = new ArrayList<>();
+        for(Document doc: docs)
+        {
+
+        }
+        return highestRanked;
+    }
+
+    //this function checks which user other users have followed
+    public List<Document>  searchByFollowSimilarity(int k)
+    {
+        List<Document> highestRanked = new ArrayList<>();
+        for(Document doc: docs)
+        {
+
+        }
+        return highestRanked;
+    }
+
+    //end of functions used to rank documents
+*/
+}

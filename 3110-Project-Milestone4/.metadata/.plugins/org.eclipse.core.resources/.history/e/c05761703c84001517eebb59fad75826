@@ -1,0 +1,65 @@
+import java.util.*;
+
+public abstract class Users {
+
+    protected int userid;
+    protected String userTaste;
+    protected List<Users> following;
+    protected List<Users> followers;
+    protected int payoff = 0;
+    protected Random rn = new Random();   // to generate random int
+    protected FileShare fs;
+
+    public Users(int userid, String userTaste, FileShare fs){
+        this.userid = userid;
+        this.userTaste = userTaste;
+        following = new ArrayList<Users>();
+        followers = new ArrayList<Users>();
+        this.fs = fs;
+        fs.addUser(this);
+    }
+
+
+    /**
+     * @param e
+     * @return
+     * whenever a user is followed it adds you to their followers arraylist if you're not already on there and adds
+     * them to your following arraylist
+     */
+    public void followUser(Users e) {
+        if(!(following.contains(e))){
+            this.following.add(e);
+            e.followers.add(e);
+            System.out.println(userName + "followed " + e.getUserName() + "\n");
+        }
+        else return;
+    }
+
+    public String getTaste(){
+        return userTaste;
+    }
+
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+		
+		/*
+		 * checks if you already liked the document, if not you are added to the arraylist
+		 * of likers and the original posters'(the producer who posted this) payoff is increased 
+		 * by one
+		 */
+
+    protected void likeDocument(Users arg0, Document d) {
+        if(d.getLikers().contains(arg0)) return;
+        else {
+            d.getPoster().payoff += 1;
+            d.addLikers(arg0);
+            System.out.println( arg0.getUserName() + " liked doc:" + d.getDocumentTag() + " ID:" + d.getDocumentID() + "\n");
+        }
+    }
+
+}
